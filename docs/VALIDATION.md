@@ -2,7 +2,13 @@
 
 Tested 6–15 October 2026 on an Apple Silicon Mac, macOS 27.0, Xcode 27.0 and Swift 6.4. Deployment target: macOS 14; per-app audio routes require 14.4. This is a development build, not a notarized public release.
 
-## Shared permissions — 15 October, latest check
+## GitHub publication check — 24 October 2026
+
+- The app and test targets compile successfully. **133 core tests and 10 service tests passed** with zero failures using `swift test --skip testLocalOCRRecognisesRenderedFixtureWithoutScreenCapture`. Log: `build/github-publish-tests-2026-10-24-without-ocr.log`.
+- The full suite stalled inside Apple Vision text recognition. The OCR fixture now performs recognition on a background task, matching the production path and keeping the test's main thread available; the framework still stalled on this Mac. Both full runs were stopped, and the single OCR check remains unverified in this run. No screen capture, account changes or privacy grants were performed.
+- Repository: [ZuhayrK00/Orbit](https://github.com/ZuhayrK00/Orbit), private, branch `main`. Source, tests, resources, scripts and documentation are included. Build products, local test logs, Xcode user state and the third-party reference checkout remain ignored. Hosted CI jobs are skipped for private repositories by the existing workflow.
+
+## Shared permissions — 15 October, earlier check
 
 - Reviewed Vorssaint’s permissions portal, onboarding and guide at `4244163`; implemented Orbit’s own shared permission model, **Settings → Permissions** page, optional onboarding rows and a non-activating floating guide. Checks use public macOS APIs; Automation checks are off-main and do not launch apps. No Camera, Microphone or Full Disk Access request was added.
 - **133 core tests and 3 permission service tests passed**, including denied/restricted request routing, write-only Calendar access, provisional notification authorization, unsupported preflights and the reset-service whitelist. The seven permission tests passed again after final recovery/lifecycle adjustments. Logs: `build/permissions-tests.log` and `build/permissions-final-tests.log`.
