@@ -89,7 +89,7 @@ final class ProductivityServiceTests: XCTestCase {
 }
 
 extension ProductivityServiceTests {
-    @MainActor func testLocalOCRRecognisesRenderedFixtureWithoutScreenCapture() throws {
+    @MainActor func testLocalOCRRecognisesRenderedFixtureWithoutScreenCapture() async throws {
         let directory = try folder(); defer { try? FileManager.default.removeItem(at: directory) }
         let bitmap = try XCTUnwrap(NSBitmapImageRep(bitmapDataPlanes: nil, pixelsWide: 1100, pixelsHigh: 160, bitsPerSample: 8, samplesPerPixel: 4, hasAlpha: true, isPlanar: false, colorSpaceName: .deviceRGB, bytesPerRow: 0, bitsPerPixel: 0))
         let context = try XCTUnwrap(NSGraphicsContext(bitmapImageRep: bitmap))
@@ -98,6 +98,9 @@ extension ProductivityServiceTests {
         ("Orbit reads text locally" as NSString).draw(at: NSPoint(x: 35, y: 65), withAttributes: [.font: NSFont.systemFont(ofSize: 48), .foregroundColor: NSColor.black])
         NSGraphicsContext.restoreGraphicsState()
         let url = directory.appendingPathComponent("text.png"); try XCTUnwrap(bitmap.representation(using: .png, properties: [:])).write(to: url)
-        let result = try ScreenTextService.recognize(at: url); XCTAssertTrue(result.contains("Orbit reads text locally"), result)
+        // Match the app's background OCR path so Vision can use main-thread
+        // services during initialization without blocking the test runner.
+        let result = try await Task.detached(priority: .userInitiated) { try ScreenTextService.recognize(at: url) }.value
+        XCTAssertTrue(result.contains("Orbit reads text locally"), result)
     }
 }
