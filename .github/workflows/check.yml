@@ -1,0 +1,12 @@
+name: Check Orbit
+on: [push, pull_request]
+jobs:
+  mac:
+    # Avoid paid hosted minutes when someone keeps their fork private.
+    if: github.event.repository.private == false
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: swift test
+      - run: ./scripts/build-app.sh release
+      - run: build/Orbit.app/Contents/MacOS/Orbit --smoke-files

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0"><dict>
+    <key>CFBundleName</key><string>Orbit</string>
+    <key>CFBundleDisplayName</key><string>Orbit</string>
+    <key>CFBundleIdentifier</key><string>dev.orbit.app</string>
+    <key>CFBundleExecutable</key><string>Orbit</string>
+    <key>CFBundlePackageType</key><string>APPL</string>
+    <key>CFBundleShortVersionString</key><string>0.1.0</string>
+    <key>CFBundleVersion</key><string>1</string>
+    <key>CFBundleIconFile</key><string>Orbit</string>
+    <key>LSMinimumSystemVersion</key><string>14.0</string>
+    <key>LSUIElement</key><true/>
+    <key>NSHighResolutionCapable</key><true/>
+    <key>NSAppleEventsUsageDescription</key><string>Orbit uses Automation to read Finder selections and control Music or Spotify when you enable those features.</string>
+    <key>NSCalendarsFullAccessUsageDescription</key><string>Orbit shows your agenda and meeting links locally in the notch, wheel and menu bar. It does not change your events.</string>
+    <key>NSCalendarsUsageDescription</key><string>Orbit shows your agenda and meeting links.</string>
+    <key>NSScreenCaptureUsageDescription</key><string>Orbit recognises text in a screen region you select. Captures are processed locally and removed afterward.</string>
+    <key>NSAudioCaptureUsageDescription</key><string>Orbit routes an app’s audio locally to adjust its volume. Audio is never recorded or uploaded.</string>
+    <key>CFBundleURLTypes</key><array><dict><key>CFBundleURLName</key><string>Orbit controls</string><key>CFBundleURLSchemes</key><array><string>orbit</string></array></dict></array>
+</dict></plist>
